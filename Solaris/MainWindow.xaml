@@ -1,0 +1,406 @@
+﻿<mah:MetroWindow
+    x:Class="Solaris.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Title="Solaris"
+    Width="557"
+    Height="509"
+    Background="#FF1D1D21"
+    BorderBrush="#FF3F3B4A"
+    IsWindowDraggable="True"
+    NonActiveBorderBrush="#FF3F3B4A"
+    ResizeMode="NoResize"
+    ShowCloseButton="False"
+    ShowSystemMenu="False"
+    ShowSystemMenuOnRightClick="False"
+    ShowTitleBar="False"
+    TitleCharacterCasing="Normal"
+    Topmost="True"
+    UseLayoutRounding="True"
+    WindowStartupLocation="CenterScreen"
+    WindowStyle="None"
+    WindowTransitionsEnabled="True"
+    mc:Ignorable="d">
+    <Grid
+        Height="509"
+        HorizontalAlignment="Center"
+        VerticalAlignment="Top">
+        <Frame
+            x:Name="Header"
+            Margin="0,0,0,506"
+            Background="Red" />
+        <Frame
+            x:Name="Indicator1"
+            Margin="0,3,553,3"
+            Background="Red"
+            Visibility="Collapsed" />
+        <Frame
+            x:Name="Indicator2"
+            Margin="553,3,0,3"
+            Background="Red"
+            Visibility="Collapsed" />
+        <Frame
+            x:Name="Indicator3"
+            Margin="0,505,0,0"
+            Background="Red"
+            Visibility="Collapsed" />
+        <Button
+            x:Name="ButtonExit"
+            Margin="512,10,10,471"
+            Background="#FF1D1D21"
+            BorderThickness="0"
+            Click="ButtonExit_Click"
+            Content="x"
+            Cursor="Hand"
+            Focusable="False"
+            FontSize="13"
+            Opacity="0.7" />
+        <Label
+            x:Name="TimerHours"
+            Width="100"
+            Height="109"
+            Margin="44,302,0,0"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+            HorizontalContentAlignment="Center"
+            VerticalContentAlignment="Center"
+            Content="00"
+            FontSize="70"
+            MouseWheel="Timer_MouseWheel" />
+        <Label
+            x:Name="TimerMinutes"
+            Width="100"
+            Height="109"
+            Margin="172,302,0,0"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+            HorizontalContentAlignment="Center"
+            VerticalContentAlignment="Center"
+            Content="00"
+            FontSize="70"
+            MouseWheel="Timer_MouseWheel" />
+        <Label
+            x:Name="TimerSeconds"
+            Width="100"
+            Height="109"
+            Margin="299,302,0,0"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+            HorizontalContentAlignment="Center"
+            VerticalContentAlignment="Center"
+            Content="00"
+            FontSize="70"
+            MouseWheel="Timer_MouseWheel" />
+        <Label
+            Width="91"
+            Margin="53,396,0,73"
+            HorizontalAlignment="Left"
+            Content="Hours"
+            Opacity="0.5" />
+        <Label
+            Width="92"
+            Margin="180,396,0,73"
+            HorizontalAlignment="Left"
+            Content="Minutes"
+            Opacity="0.5" />
+        <Label
+            Width="91"
+            Margin="308,396,0,73"
+            HorizontalAlignment="Left"
+            Content="Seconds"
+            Opacity="0.5" />
+        <Border
+            Width="557"
+            Margin="0,256,0,250"
+            HorizontalAlignment="Center"
+            Background="Gray"
+            BorderThickness="1"
+            Opacity="0.2" />
+        <Label
+            Width="19"
+            Margin="149,326,0,112"
+            HorizontalAlignment="Left"
+            HorizontalContentAlignment="Center"
+            VerticalContentAlignment="Center"
+            Content=":"
+            FontSize="40"
+            Foreground="red" />
+        <Label
+            Width="19"
+            Margin="276,326,0,112"
+            HorizontalAlignment="Left"
+            HorizontalContentAlignment="Center"
+            VerticalContentAlignment="Center"
+            Content=":"
+            FontSize="40"
+            Foreground="red" />
+        <ComboBox
+            x:Name="dropDownshutdown"
+            Width="107"
+            Margin="44,451,0,27"
+            HorizontalAlignment="Left"
+            BorderThickness="0"
+            Cursor="Hand"
+            Focusable="False"
+            IsTabStop="False"
+            Opacity="0.8" />
+        <Button
+            x:Name="PredefineTime1"
+            Width="39"
+            Margin="223,451,0,27"
+            HorizontalAlignment="Left"
+            BorderThickness="0"
+            Click="PredefinedTimes_Click"
+            Content="10"
+            Cursor="Hand"
+            Focusable="False"
+            IsTabStop="False"
+            Opacity="0.7" />
+        <Button
+            x:Name="PredefineTime2"
+            Width="38"
+            Margin="274,451,0,27"
+            HorizontalAlignment="Left"
+            BorderThickness="0"
+            Click="PredefinedTimes_Click"
+            Content="20"
+            Cursor="Hand"
+            Focusable="False"
+            IsTabStop="False"
+            Opacity="0.7" />
+        <Button
+            x:Name="PredefineTime3"
+            Width="38"
+            Margin="324,451,0,27"
+            HorizontalAlignment="Left"
+            BorderThickness="0"
+            Click="PredefinedTimes_Click"
+            Content="30"
+            Cursor="Hand"
+            Focusable="False"
+            IsTabStop="False"
+            Opacity="0.7" />
+        <Button
+            x:Name="PredefineTime4"
+            Width="38"
+            Margin="374,451,0,27"
+            HorizontalAlignment="Left"
+            BorderThickness="0"
+            Click="PredefinedTimes_Click"
+            Content="40"
+            Cursor="Hand"
+            Focusable="False"
+            IsTabStop="False"
+            Opacity="0.7" />
+        <Button
+            x:Name="PredefineTime5"
+            Width="38"
+            Margin="424,451,0,27"
+            HorizontalAlignment="Left"
+            BorderThickness="0"
+            Click="PredefinedTimes_Click"
+            Content="50"
+            Cursor="Hand"
+            Focusable="False"
+            IsTabStop="False"
+            Opacity="0.7" />
+        <Button
+            x:Name="PredefineTime6"
+            Width="38"
+            Margin="474,451,0,27"
+            HorizontalAlignment="Left"
+            BorderThickness="0"
+            Click="PredefinedTimes_Click"
+            Content="60"
+            Cursor="Hand"
+            Focusable="False"
+            IsTabStop="False"
+            Opacity="0.7" />
+        <Button
+            x:Name="TimerStartStop"
+            Width="77"
+            Height="50"
+            Margin="434,328,0,0"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+            BorderThickness="0"
+            Click="TimerStartStop_Click"
+            Content="Start"
+            Cursor="Hand"
+            Focusable="False"
+            FontSize="12"
+            IsTabStop="False"
+            Opacity="0.8" />
+        <Button
+            x:Name="TimerDelete"
+            Width="77"
+            Height="28"
+            Margin="434,383,0,0"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+            mah:ControlsHelper.ContentCharacterCasing="Normal"
+            BorderThickness="0"
+            Click="TimerDelete_Click"
+            Content="Reset"
+            Cursor="Hand"
+            Focusable="False"
+            FontSize="11"
+            IsTabStop="False"
+            Opacity="0.8" />
+        <Label
+            Width="100"
+            Margin="24,284,0,197"
+            HorizontalAlignment="Left"
+            Content="Shutdown Timer"
+            Opacity="0.7" />
+        <Label
+            Width="156"
+            Margin="24,26,0,455"
+            HorizontalAlignment="Left"
+            Content="Download Calculator"
+            Opacity="0.7" />
+        <Label
+            Width="170"
+            Margin="44,176,0,305"
+            HorizontalAlignment="Left"
+            Content="Estimated Transfer Time:"
+            Opacity="0.5" />
+        <Label
+            Width="170"
+            Margin="44,209,0,272"
+            HorizontalAlignment="Left"
+            Content="Estimated Completion Time:"
+            Opacity="0.5" />
+        <Label
+            x:Name="ETA"
+            Width="178"
+            Margin="226,174,0,303"
+            HorizontalAlignment="Left"
+            HorizontalContentAlignment="Center"
+            Cursor="Hand"
+            FontSize="17"
+            MouseDoubleClick="ETA_MouseDoubleClick" />
+        <Label
+            x:Name="CompletionTime"
+            Width="178"
+            Margin="226,207,0,274"
+            HorizontalAlignment="Left"
+            HorizontalContentAlignment="Center"
+            FontSize="13" />
+        <Label
+            Width="136"
+            Margin="53,66,0,415"
+            HorizontalAlignment="Left"
+            Content="Total File Size: " />
+        <Label
+            Width="136"
+            Margin="53,98,0,383"
+            HorizontalAlignment="Left"
+            Content="Already Downloaded: " />
+        <Label
+            Width="136"
+            Margin="53,132,0,349"
+            HorizontalAlignment="Left"
+            Content="Average Speed: " />
+        <ComboBox
+            x:Name="dropdownFilesize"
+            Width="77"
+            Margin="434,66,0,415"
+            HorizontalAlignment="Left"
+            HorizontalContentAlignment="Center"
+            BorderThickness="0"
+            Focusable="False"
+            IsTabStop="False" />
+        <TextBox
+            x:Name="inputFilesize"
+            Width="130"
+            Height="28"
+            Margin="250,66,0,0"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+            HorizontalContentAlignment="Center"
+            BorderThickness="0"
+            FontSize="14"
+            MouseWheel="Calculator_MouseWheel"
+            Text="0"
+            TextChanged="Input_TextChanged"
+            TextWrapping="Wrap" />
+        <TextBox
+            x:Name="inputCompleted"
+            Width="130"
+            Height="28"
+            Margin="250,99,0,0"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+            HorizontalContentAlignment="Center"
+            BorderThickness="0"
+            FontSize="14"
+            MouseWheel="Calculator_MouseWheel"
+            Text="0"
+            TextChanged="Input_TextChanged"
+            TextWrapping="Wrap" />
+        <TextBox
+            x:Name="inputSpeed"
+            Width="130"
+            Height="28"
+            Margin="250,132,0,0"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+            HorizontalContentAlignment="Center"
+            BorderThickness="0"
+            FontSize="14"
+            MouseWheel="Calculator_MouseWheel"
+            Text="0"
+            TextChanged="Input_TextChanged"
+            TextWrapping="Wrap" />
+        <ComboBox
+            x:Name="dropDownalreadydownloaded"
+            Width="77"
+            Margin="434,99,0,382"
+            HorizontalAlignment="Left"
+            HorizontalContentAlignment="Center"
+            BorderThickness="0"
+            Focusable="False"
+            IsTabStop="False" />
+        <ComboBox
+            x:Name="dropDownspeed"
+            Width="77"
+            Margin="434,132,0,349"
+            HorizontalAlignment="Left"
+            HorizontalContentAlignment="Center"
+            BorderThickness="0"
+            Focusable="False"
+            IsTabStop="False" />
+        <Button
+            x:Name="CalculateStart"
+            Width="78"
+            Margin="434,174,0,307"
+            HorizontalAlignment="Left"
+            mah:ControlsHelper.ContentCharacterCasing="Normal"
+            BorderThickness="0"
+            Click="CalculateStart_Click"
+            Content="Calculate"
+            Cursor="Hand"
+            Focusable="False"
+            FontSize="11"
+            IsTabStop="False"
+            Opacity="0.8" />
+        <Button
+            x:Name="CalculateReset"
+            Width="78"
+            Margin="434,207,0,274"
+            HorizontalAlignment="Left"
+            mah:ControlsHelper.ContentCharacterCasing="Normal"
+            BorderThickness="0"
+            Click="CalculateReset_Click"
+            Content="Reset"
+            Cursor="Hand"
+            Focusable="False"
+            FontSize="11"
+            IsTabStop="False"
+            Opacity="0.8" />
+    </Grid>
+</mah:MetroWindow>
