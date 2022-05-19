@@ -505,6 +505,7 @@ namespace Solaris
                 Indicator1.Visibility = Visibility.Collapsed;
                 Indicator2.Visibility = Visibility.Collapsed;
                 Indicator3.Visibility = Visibility.Collapsed;
+                labelDisableButtons.Visibility = Visibility.Collapsed;
 
                 if (Properties.Settings.Default.SettingNotifications == true)
                 {
@@ -525,6 +526,7 @@ namespace Solaris
                 Indicator1.Visibility = Visibility.Visible;
                 Indicator2.Visibility = Visibility.Visible;
                 Indicator3.Visibility = Visibility.Visible;
+                labelDisableButtons.Visibility = Visibility.Visible;
 
                 string totalTime = runningTime.ToString(@"hh\:mm\:ss");
                 string[] totalTimeSplit = totalTime.Split(':');

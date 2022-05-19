@@ -90,6 +90,17 @@
             </Grid>
         </Button>
 
+        <Label
+            x:Name="labelDisableButtons"
+            Width="94"
+            Height="28"
+            Margin="454,6,0,0"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+            Background="#FF212125"
+            Opacity="0.5"
+            Visibility="Collapsed" />
+
         <mah:FlyoutsControl>
             <mah:Flyout
                 x:Name="InfoFlyout"
