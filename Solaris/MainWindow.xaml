@@ -1,10 +1,10 @@
 ﻿<mah:MetroWindow
     x:Class="Solaris.MainWindow"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
     xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+    xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Title="Solaris"
     Width="557"
@@ -33,10 +33,30 @@
             Background="Red"
             Focusable="False"
             IsTabStop="False" />
+
+        <Button
+            x:Name="ButtonInfo"
+            Height="28"
+            Margin="454,6,75,0"
+            VerticalAlignment="Top"
+            Background="#FF1D1D21"
+            BorderThickness="0"
+            Click="ButtonInfo_Click"
+            Cursor="Hand"
+            Focusable="False"
+            Opacity="0.7">
+            <Grid>
+                <iconPacks:PackIconMaterial
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Kind="InformationOutline" />
+            </Grid>
+        </Button>
+
         <Button
             x:Name="ButtonSettings"
-            Height="34"
-            Margin="477,8,45,0"
+            Height="28"
+            Margin="487,6,42,0"
             VerticalAlignment="Top"
             Background="#FF1D1D21"
             BorderThickness="0"
@@ -53,8 +73,8 @@
         </Button>
         <Button
             x:Name="ButtonExit"
-            Height="34"
-            Margin="512,8,10,0"
+            Height="28"
+            Margin="520,6,9,0"
             VerticalAlignment="Top"
             Background="#FF1D1D21"
             BorderThickness="0"
@@ -69,6 +89,72 @@
                     Kind="CloseThick" />
             </Grid>
         </Button>
+
+        <mah:FlyoutsControl>
+            <mah:Flyout
+                x:Name="InfoFlyout"
+                Margin="1,102,0,98"
+                mah:HeaderedControlHelper.HeaderMargin="-50,0,0,0"
+                Background="#FF212125"
+                Focusable="False"
+                IsOpen="False"
+                IsTabStop="False"
+                Position="Top">
+                <Grid x:Name="MainInfoGrid" Visibility="Collapsed">
+                    <Button
+                        x:Name="ButtonCloseInfo"
+                        Height="34"
+                        Margin="496,14,26,0"
+                        VerticalAlignment="Top"
+                        Background="#FF212127"
+                        BorderThickness="0"
+                        Click="ButtonCloseInfo_Click"
+                        Cursor="Hand"
+                        Focusable="False"
+                        Opacity="0.7">
+                        <Grid>
+                            <iconPacks:PackIconMaterial
+                                Width="14"
+                                Height="14"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Kind="CloseThick" />
+                        </Grid>
+                    </Button>
+                    <TextBlock
+                        Height="26"
+                        Margin="22,18,62,0"
+                        VerticalAlignment="Top"
+                        FontSize="18"
+                        Opacity="0.7"
+                        Text=" Info" />
+                    <Image Margin="-5,44,-4,175" Source="pack://application:,,,/Images/AppName.png" />
+                    <Label
+                        x:Name="VersionLabel"
+                        Margin="70,189,75,45"
+                        Content="Version:  " />
+                    <Label
+                        x:Name="GitLabel"
+                        Margin="69,210,76,23"
+                        Content="https://github.com/aSavagePancake/Solaris" />
+                    <Frame
+                        Height="3"
+                        Margin="-7,0,0,0"
+                        VerticalAlignment="Top"
+                        Background="Red"
+                        Focusable="False"
+                        IsTabStop="False"
+                        Visibility="Visible" />
+                    <Border
+                        Height="5"
+                        Margin="-5,272,0,0"
+                        VerticalAlignment="Top"
+                        Background="Gray"
+                        BorderThickness="1"
+                        Opacity="0.2" />
+                </Grid>
+            </mah:Flyout>
+        </mah:FlyoutsControl>
 
         <Grid x:Name="SettingsGrid">
             <mah:FlyoutsControl>
@@ -192,6 +278,16 @@
                             Content="[This is to factor in speed drops etc]"
                             FontSize="11"
                             Opacity="0.7" />
+                        <Label
+                            x:Name="labelDisableAddTime"
+                            Width="202"
+                            Height="28"
+                            Margin="74,210,0,0"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Top"
+                            Background="#FF212125"
+                            Opacity="0.5"
+                            Visibility="Collapsed" />
                         <Frame
                             Height="3"
                             Margin="-7,0,0,0"
@@ -207,16 +303,6 @@
                             Background="Gray"
                             BorderThickness="1"
                             Opacity="0.2" />
-                        <Label
-                            x:Name="labelDisableAddTime"
-                            Width="202"
-                            Height="28"
-                            Margin="74,210,0,0"
-                            HorizontalAlignment="Left"
-                            VerticalAlignment="Top"
-                            Background="#FF212125"
-                            Opacity="0.5"
-                            Visibility="Collapsed" />
                     </Grid>
                 </mah:Flyout>
             </mah:FlyoutsControl>

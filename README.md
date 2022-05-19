@@ -11,3 +11,8 @@ Microsoft.Toolkit.Uwp.Notifications > https://github.com/CommunityToolkit/Window
 
 Main UI ..  
 ![](images/Screenshot.png)
+
+
+More ..  
+![](images/ScreenshotSettings.png)
+![](images/ScreenshotInfo.png)

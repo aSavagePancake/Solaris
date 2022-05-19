@@ -15,7 +15,7 @@
     <ApplicationIcon>Images\AppIcon.ico</ApplicationIcon>
     <FileVersion></FileVersion>
     <AssemblyVersion></AssemblyVersion>
-    <Version>1.1.0</Version>
+    <Version>1.1.2</Version>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -37,6 +37,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Images\AppName.png" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Content Include="Images\AppIcon.ico" />
   </ItemGroup>
 	
@@ -44,6 +48,12 @@
     <PackageReference Include="MahApps.Metro" Version="2.4.9" />
     <PackageReference Include="MahApps.Metro.IconPacks.Material" Version="4.11.0" />
     <PackageReference Include="Microsoft.Toolkit.Uwp.Notifications" Version="7.1.2" />
+  </ItemGroup>
+	
+  <ItemGroup>
+    <Resource Include="Images\AppName.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
 
   <ItemGroup>

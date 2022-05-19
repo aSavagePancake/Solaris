@@ -59,6 +59,9 @@ namespace Solaris
                 SetValue(ToolTipEnabledProperty, false);
             }
 
+            VersionLabel.Content += GetVersion;
+
+            InfoFlyout.IsOpenChanged += InfoFlyoutIsOpenChanged;
             SettingsFlyout.IsOpenChanged += SettingsFlyoutIsOpenChanged;
         }
 
@@ -74,11 +77,32 @@ namespace Solaris
                 }
             }));
 
+        private void InfoFlyoutIsOpenChanged(object sender, RoutedEventArgs e)
+        {
+            if (InfoFlyout.IsOpen)
+            {
+                MainGrid.Visibility = Visibility.Collapsed;
+                ButtonInfo.Visibility = Visibility.Collapsed;
+                ButtonSettings.Visibility = Visibility.Collapsed;
+                ButtonExit.Visibility = Visibility.Collapsed;
+                MainInfoGrid.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                MainGrid.Visibility = Visibility.Visible;
+                ButtonInfo.Visibility = Visibility.Visible;
+                ButtonSettings.Visibility = Visibility.Visible;
+                ButtonExit.Visibility = Visibility.Visible;
+                MainInfoGrid.Visibility = Visibility.Collapsed;
+            }
+        }
+
         private void SettingsFlyoutIsOpenChanged(object sender, RoutedEventArgs e)
         {
             if (SettingsFlyout.IsOpen)
             {
                 MainGrid.Visibility = Visibility.Collapsed;
+                ButtonInfo.Visibility = Visibility.Collapsed;
                 ButtonSettings.Visibility = Visibility.Collapsed;
                 ButtonExit.Visibility = Visibility.Collapsed;
                 MainSettingsGrid.Visibility = Visibility.Visible;
@@ -111,6 +135,7 @@ namespace Solaris
             else
             {
                 MainSettingsGrid.Visibility = Visibility.Collapsed;
+                ButtonInfo.Visibility = Visibility.Visible;
                 ButtonSettings.Visibility = Visibility.Visible;
                 ButtonExit.Visibility = Visibility.Visible;
                 MainGrid.Visibility = Visibility.Visible;
@@ -673,6 +698,16 @@ namespace Solaris
             }
         }
 
+        private void ButtonInfo_Click(object sender, RoutedEventArgs e)
+        {
+            InfoFlyout.IsOpen = true;
+        }
+
+        private void ButtonCloseInfo_Click(object sender, RoutedEventArgs e)
+        {
+            InfoFlyout.IsOpen = false;
+        }
+
         private void ButtonSettings_Click(object sender, RoutedEventArgs e)
         {
             SettingsFlyout.IsOpen = true;
@@ -754,5 +789,7 @@ namespace Solaris
                 labelDisableAddTime.Visibility = Visibility.Visible;
             }
         }
+
+        public static string GetVersion => System.Reflection.Assembly.GetExecutingAssembly().GetName().Version!.ToString();
     }
 }
