@@ -10,9 +10,8 @@ MahApps.Metro.IconPacks.Material > https://github.com/MahApps/MahApps.Metro.Icon
 Microsoft.Toolkit.Uwp.Notifications > https://github.com/CommunityToolkit/WindowsCommunityToolkit/tree/main/Microsoft.Toolkit.Uwp.Notifications  
 
 Main UI ..  
-![](images/Screenshot.png)
+<img src="images/Screenshot.png"/>
 
 
 More ..  
-![](images/ScreenshotSettings.png)
-![](images/ScreenshotInfo.png)
+<img src="images/ScreenshotSettings.png" width="350"/>   <img src="images/ScreenshotInfo.png" width="350"/>
