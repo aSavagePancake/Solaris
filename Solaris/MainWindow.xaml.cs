@@ -16,6 +16,9 @@ namespace Solaris
         private static long calculatedSeconds;
         private static long calculatedMinutes;
         private static long calculatedHours;
+        private static long adjustedSeconds;
+        private static long adjustedMinutes;
+        private static long adjustedHours;
         private DispatcherTimer countDown = null!;
         private bool isTimerRunning;
 
@@ -38,6 +41,80 @@ namespace Solaris
 
             var varshutdownType = ShutdownType.FindIndex(a => a.Contains("Shutdown"));
             dropDownshutdown.SelectedIndex = varshutdownType;
+
+            string timeValue = AddExtraTimeTB.Text = Properties.Settings.Default.SettingAddTimeValue;
+
+            Window window = (Window)this;
+            if (Properties.Settings.Default.SettingKeepOnTop == true)
+            {
+                window.Topmost = true;
+            }
+
+            if (Properties.Settings.Default.SettingTooltips == true)
+            {
+                SetValue(ToolTipEnabledProperty, true);
+            }
+            else if (Properties.Settings.Default.SettingTooltips == false)
+            {
+                SetValue(ToolTipEnabledProperty, false);
+            }
+
+            SettingsFlyout.IsOpenChanged += SettingsFlyoutIsOpenChanged;
+        }
+
+        public static readonly DependencyProperty ToolTipEnabledProperty = DependencyProperty.RegisterAttached(
+            "IsToolTipEnabled",
+            typeof(Boolean),
+            typeof(MainWindow),
+            new FrameworkPropertyMetadata(true, FrameworkPropertyMetadataOptions.Inherits, (sender, e) =>
+            {
+                if (sender is FrameworkElement element)
+                {
+                    element.SetValue(ToolTipService.IsEnabledProperty, e.NewValue);
+                }
+            }));
+
+        private void SettingsFlyoutIsOpenChanged(object sender, RoutedEventArgs e)
+        {
+            if (SettingsFlyout.IsOpen)
+            {
+                MainGrid.Visibility = Visibility.Collapsed;
+                ButtonSettings.Visibility = Visibility.Collapsed;
+                ButtonExit.Visibility = Visibility.Collapsed;
+                MainSettingsGrid.Visibility = Visibility.Visible;
+
+                if (Properties.Settings.Default.SettingKeepOnTop == true)
+                {
+                    KeepOnTopCB.IsChecked = true;
+                }
+
+                if (Properties.Settings.Default.SettingTooltips == true)
+                {
+                    TooltipsCB.IsChecked = true;
+                }
+
+                if (Properties.Settings.Default.SettingNotifications == true)
+                {
+                    ShowNotifCB.IsChecked = true;
+                }
+
+                if (Properties.Settings.Default.SettingAddTime == true)
+                {
+                    AddExtraTimeCB.IsChecked = true;
+                    labelDisableAddTime.Visibility = Visibility.Collapsed;
+                }
+                else
+                {
+                    labelDisableAddTime.Visibility = Visibility.Visible;
+                }
+            }
+            else
+            {
+                MainSettingsGrid.Visibility = Visibility.Collapsed;
+                ButtonSettings.Visibility = Visibility.Visible;
+                ButtonExit.Visibility = Visibility.Visible;
+                MainGrid.Visibility = Visibility.Visible;
+            }
         }
 
         internal static List<string> CalculatorFilesize
@@ -172,6 +249,16 @@ namespace Solaris
                 long speedfinal = speed * speedVariable;
                 long totalSeconds = sizefinal / speedfinal;
 
+                if (Properties.Settings.Default.SettingAddTime == true)
+                {
+                    long additionalMinutes = Convert.ToInt32(Properties.Settings.Default.SettingAddTimeValue);
+                    long calculatedSeconds = additionalMinutes * 60;
+                    long calculatedTotal = totalSeconds + calculatedSeconds;
+                    adjustedHours = calculatedTotal / 3600;
+                    adjustedMinutes = (calculatedTotal % 3600) / 60;
+                    adjustedSeconds = (calculatedTotal % 60);
+                }
+
                 long hours = totalSeconds / 3600;
                 long minutes = (totalSeconds % 3600) / 60;
                 long seconds = (totalSeconds % 60);
@@ -296,17 +383,42 @@ namespace Solaris
                 return;
             }
 
-            if (!calculatedHours.Equals(null))
+            if (ETA.Content.ToString() == "")
             {
-                if (calculatedHours < 24)
+                return;
+            }
+
+            long selectedHours;
+            long selectedMinutes;
+            long selectedSeconds;
+            string message;
+
+            if (Properties.Settings.Default.SettingAddTime == true)
+            {
+                selectedHours = adjustedHours;
+                selectedMinutes = adjustedMinutes;
+                selectedSeconds = adjustedSeconds;
+                message = "(Additional +" + Properties.Settings.Default.SettingAddTimeValue + " mins added to imported time)";
+            }
+            else
+            {
+                selectedHours = calculatedHours;
+                selectedMinutes = calculatedMinutes;
+                selectedSeconds = calculatedSeconds;
+                message = "";
+            }
+
+            if (!selectedHours.Equals(null))
+            {
+                if (selectedHours < 24)
                 {
-                    if (calculatedHours.ToString().Length.Equals(2))
+                    if (selectedHours.ToString().Length.Equals(2))
                     {
-                        TimerHours.Content = calculatedHours.ToString();
+                        TimerHours.Content = selectedHours.ToString();
                     }
-                    else if (calculatedHours.ToString().Length.Equals(1))
+                    else if (selectedHours.ToString().Length.Equals(1))
                     {
-                        string adjusted = "0" + calculatedHours;
+                        string adjusted = "0" + selectedHours;
                         TimerHours.Content = adjusted.ToString();
                     }
                 }
@@ -318,36 +430,35 @@ namespace Solaris
                     return;
                 }
             }
-            if (!calculatedMinutes.Equals(null))
+            if (!selectedMinutes.Equals(null))
             {
-                if (calculatedMinutes.ToString().Length.Equals(2))
+                if (selectedMinutes.ToString().Length.Equals(2))
                 {
-                    TimerMinutes.Content = calculatedMinutes.ToString();
+                    TimerMinutes.Content = selectedMinutes.ToString();
                 }
                 else
                 {
-                    string adjusted = "0" + calculatedMinutes;
+                    string adjusted = "0" + selectedMinutes;
                     TimerMinutes.Content = adjusted.ToString();
                 }
             }
-            if (!calculatedSeconds.Equals(null))
+            if (!selectedSeconds.Equals(null))
             {
-                if (calculatedSeconds.ToString().Length.Equals(2))
+                if (selectedSeconds.ToString().Length.Equals(2))
                 {
-                    TimerSeconds.Content = calculatedSeconds.ToString();
+                    TimerSeconds.Content = selectedSeconds.ToString();
                 }
                 else
                 {
-                    string adjusted = "0" + calculatedSeconds;
+                    string adjusted = "0" + selectedSeconds;
                     TimerSeconds.Content = adjusted.ToString();
                 }
             }
+            AdditionalMessage.Content = message;
         }
 
         private void TimerStartStop_Click(object sender, RoutedEventArgs e)
         {
-            TimerHours.Focus();
-
             int hours = Convert.ToInt32(TimerHours.Content);
             int minutes = Convert.ToInt32(TimerMinutes.Content);
             int seconds = Convert.ToInt32(TimerSeconds.Content);
@@ -365,23 +476,27 @@ namespace Solaris
                 countDown.Stop();
                 isTimerRunning = false;
                 TimerStartStop.Foreground = Brushes.White;
-                TimerStartStop.Content = "Start";
+                StartStopIcon.Kind = MahApps.Metro.IconPacks.PackIconMaterialKind.Play;
                 Indicator1.Visibility = Visibility.Collapsed;
                 Indicator2.Visibility = Visibility.Collapsed;
                 Indicator3.Visibility = Visibility.Collapsed;
 
-                new ToastContentBuilder()
-                    .AddArgument("action", "viewConversation")
-                    .AddArgument("conversationId", 9813)
-                    .AddText("Shutdown Timer Stopped")
-                    .Show();
+                if (Properties.Settings.Default.SettingNotifications == true)
+                {
+                    new ToastContentBuilder()
+                            .AddArgument("action", "viewConversation")
+                            .AddArgument("conversationId", 9813)
+                            .AddText("Shutdown Timer Stopped")
+                            .Show();
+                }
+
                 return;
             }
 
             countDown = new DispatcherTimer(new TimeSpan(0, 0, 1), DispatcherPriority.Normal, delegate
             {
                 TimerStartStop.Foreground = Brushes.Red;
-                TimerStartStop.Content = "Stop";
+                StartStopIcon.Kind = MahApps.Metro.IconPacks.PackIconMaterialKind.Pause;
                 Indicator1.Visibility = Visibility.Visible;
                 Indicator2.Visibility = Visibility.Visible;
                 Indicator3.Visibility = Visibility.Visible;
@@ -431,11 +546,14 @@ namespace Solaris
             countDown.Start();
             isTimerRunning = true;
 
-            new ToastContentBuilder()
+            if (Properties.Settings.Default.SettingNotifications == true)
+            {
+                new ToastContentBuilder()
                    .AddArgument("action", "viewConversation")
                    .AddArgument("conversationId", 9813)
                    .AddText("Shutdown Timer Started")
                    .Show();
+            }
         }
 
         private static void ExecuteShutdown(string command)
@@ -462,6 +580,7 @@ namespace Solaris
             TimerHours.Content = adjusted;
             TimerMinutes.Content = adjusted;
             TimerSeconds.Content = adjusted;
+            AdditionalMessage.Content = "";
         }
 
         private void PredefinedTimes_Click(object sender, RoutedEventArgs e)
@@ -554,9 +673,86 @@ namespace Solaris
             }
         }
 
+        private void ButtonSettings_Click(object sender, RoutedEventArgs e)
+        {
+            SettingsFlyout.IsOpen = true;
+        }
+
+        private void ButtonCloseSettings_Click(object sender, RoutedEventArgs e)
+        {
+            SettingsFlyout.IsOpen = false;
+            string timeValue = AddExtraTimeTB.Text;
+            Properties.Settings.Default.SettingAddTimeValue = timeValue;
+            Properties.Settings.Default.Save();
+        }
+
         private void ButtonExit_Click(object sender, RoutedEventArgs e)
         {
             Close();
+        }
+
+        private void KeepOnTopCB_Click(object sender, RoutedEventArgs e)
+        {
+            Window window = (Window)this;
+
+            if (KeepOnTopCB.IsChecked == true)
+            {
+                Properties.Settings.Default.SettingKeepOnTop = true;
+                Properties.Settings.Default.Save();
+                window.Topmost = true;
+            }
+            else
+            {
+                Properties.Settings.Default.SettingKeepOnTop = false;
+                Properties.Settings.Default.Save();
+                window.Topmost = false;
+            }
+        }
+
+        private void TooltipsCB_Click(object sender, RoutedEventArgs e)
+        {
+            if (TooltipsCB.IsChecked == true)
+            {
+                Properties.Settings.Default.SettingTooltips = true;
+                Properties.Settings.Default.Save();
+                SetValue(ToolTipEnabledProperty, true);
+            }
+            else
+            {
+                Properties.Settings.Default.SettingTooltips = false;
+                Properties.Settings.Default.Save();
+                SetValue(ToolTipEnabledProperty, false);
+            }
+        }
+
+        private void ShowNotifCB_Click(object sender, RoutedEventArgs e)
+        {
+            if (ShowNotifCB.IsChecked == true)
+            {
+                Properties.Settings.Default.SettingNotifications = true;
+                Properties.Settings.Default.Save();
+            }
+            else
+            {
+                Properties.Settings.Default.SettingNotifications = false;
+                Properties.Settings.Default.Save();
+            }
+        }
+
+        private void AddExtraTimeCB_Click(object sender, RoutedEventArgs e)
+        {
+            if (AddExtraTimeCB.IsChecked == true)
+            {
+                Properties.Settings.Default.SettingAddTime = true;
+                Properties.Settings.Default.Save();
+                labelDisableAddTime.Visibility = Visibility.Collapsed;
+            }
+            else
+            {
+                Properties.Settings.Default.SettingAddTime = false;
+                Properties.Settings.Default.Save();
+                labelDisableAddTime.Visibility = Visibility.Visible;
+            }
         }
     }
 }
