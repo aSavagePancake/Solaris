@@ -3,6 +3,7 @@ using Microsoft.Toolkit.Uwp.Notifications;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -21,6 +22,7 @@ namespace Solaris
         private static long adjustedHours;
         private DispatcherTimer countDown = null!;
         private bool isTimerRunning;
+        public bool isPerfStatsRunning;
 
         public MainWindow()
         {
@@ -82,6 +84,8 @@ namespace Solaris
             if (InfoFlyout.IsOpen)
             {
                 MainGrid.Visibility = Visibility.Collapsed;
+                PerfStatsGrid.Visibility = Visibility.Collapsed;
+                ButtonPerfStats.Visibility = Visibility.Collapsed;
                 ButtonInfo.Visibility = Visibility.Collapsed;
                 ButtonSettings.Visibility = Visibility.Collapsed;
                 ButtonExit.Visibility = Visibility.Collapsed;
@@ -90,6 +94,8 @@ namespace Solaris
             else
             {
                 MainGrid.Visibility = Visibility.Visible;
+                PerfStatsGrid.Visibility = Visibility.Visible;
+                ButtonPerfStats.Visibility = Visibility.Visible;
                 ButtonInfo.Visibility = Visibility.Visible;
                 ButtonSettings.Visibility = Visibility.Visible;
                 ButtonExit.Visibility = Visibility.Visible;
@@ -102,6 +108,8 @@ namespace Solaris
             if (SettingsFlyout.IsOpen)
             {
                 MainGrid.Visibility = Visibility.Collapsed;
+                PerfStatsGrid.Visibility = Visibility.Collapsed;
+                ButtonPerfStats.Visibility = Visibility.Collapsed;
                 ButtonInfo.Visibility = Visibility.Collapsed;
                 ButtonSettings.Visibility = Visibility.Collapsed;
                 ButtonExit.Visibility = Visibility.Collapsed;
@@ -135,12 +143,14 @@ namespace Solaris
             else
             {
                 MainSettingsGrid.Visibility = Visibility.Collapsed;
+                PerfStatsGrid.Visibility = Visibility.Visible;
+                ButtonPerfStats.Visibility = Visibility.Visible;
                 ButtonInfo.Visibility = Visibility.Visible;
                 ButtonSettings.Visibility = Visibility.Visible;
                 ButtonExit.Visibility = Visibility.Visible;
                 MainGrid.Visibility = Visibility.Visible;
             }
-        }
+        }        
 
         internal static List<string> CalculatorFilesize
         {
@@ -793,5 +803,43 @@ namespace Solaris
         }
 
         public static string GetVersion => System.Reflection.Assembly.GetExecutingAssembly().GetName().Version!.ToString();
+
+        private void ButtonPerfStats_Click(object sender, RoutedEventArgs e)
+        {
+            if (PerfStatsFlyout.IsOpen)
+            {
+                try
+                {
+                    PerformanceStats.ThisPc?.Close();
+                }
+                catch { }
+
+                PerfStatsFlyout.IsOpen = false;
+                Application.Current.MainWindow.Height = 481;
+                PerfStatsGrid.Visibility = Visibility.Collapsed;
+                isPerfStatsRunning = false;
+                Indicator3.Margin = new Thickness(2, 474, -3, 38);
+            }
+            else
+            {
+                Application.Current.MainWindow.Height = 530;
+                PerfStatsGrid.Visibility = Visibility.Visible;
+                PerfStatsFlyout.IsOpen = true;
+                isPerfStatsRunning = true;
+                Indicator3.Margin = new Thickness(0, 523, -1, -10);
+                StartPerfStats();
+            }
+        }
+
+        private static async void StartPerfStats()
+        {
+            await PutTaskDelay();
+            PerformanceStats.StartHardwareMonitor();
+        }
+
+        private static async Task PutTaskDelay()
+        {
+            await Task.Delay(500);
+        }
     }
 }
