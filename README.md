@@ -8,6 +8,7 @@ Simple download time calculator with built in auto shutdown/reboot timer
 MahApps.Metro > https://github.com/MahApps/MahApps.Metro  
 MahApps.Metro.IconPacks.Material > https://github.com/MahApps/MahApps.Metro.IconPacks     
 Microsoft.Toolkit.Uwp.Notifications > https://github.com/CommunityToolkit/WindowsCommunityToolkit/tree/main/Microsoft.Toolkit.Uwp.Notifications  
+LibreHardwareMonitor.Hardware > https://github.com/LibreHardwareMonitor/LibreHardwareMonitor    
 
 Main UI ..  
 <img src="images/Screenshot.png"/>
