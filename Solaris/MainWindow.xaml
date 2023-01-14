@@ -690,26 +690,27 @@
                     Opacity="0.5" />
                 <Label
                     x:Name="ETA"
-                    Width="173"
-                    Margin="171,169,0,308"
+                    Width="157"
+                    Margin="185,169,0,308"
                     HorizontalAlignment="Left"
                     HorizontalContentAlignment="Center"
                     Content=""
-                    Cursor="Hand"
+                    BorderThickness="0"
+                    BorderBrush="Red"
                     FontSize="17"
                     MouseDown="ETA_MouseDown"
                     ToolTipService.ToolTip="Click to add the calculated time to Shutdown Timer" />
                 <Border
-                    Width="4"
-                    Margin="346,169,0,308"
+                    Width="5"
+                    Margin="352,169,0,308"
                     HorizontalAlignment="Left"
                     Background="Gray"
                     BorderThickness="1"
                     Opacity="0.2" />
                 <Label
                     x:Name="CompletionTime"
-                    Width="159"
-                    Margin="352,173,0,308"
+                    Width="138"
+                    Margin="372,173,0,308"
                     HorizontalAlignment="Left"
                     HorizontalContentAlignment="Center"
                     FontSize="13" />
@@ -821,7 +822,7 @@
                 <Button
                     x:Name="CalculateStart"
                     Width="58"
-                    Margin="453,66,0,399"
+                    Margin="453,66,0,404"
                     HorizontalAlignment="Left"
                     Background="#FF1D1D21"
                     BorderThickness="0"
@@ -842,8 +843,8 @@
                 <Button
                     x:Name="CalculateReset"
                     Width="58"
-                    Height="45"
-                    Margin="453,115,0,0"
+                    Height="46"
+                    Margin="453,114,0,0"
                     HorizontalAlignment="Left"
                     VerticalAlignment="Top"
                     Background="#FF1D1D21"

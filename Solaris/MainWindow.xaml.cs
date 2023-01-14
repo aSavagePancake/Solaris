@@ -329,6 +329,8 @@ namespace Solaris
                 ETA.Content = eta;
                 time = DateTime.Now.AddSeconds(totalSeconds).ToString("h:mm:ss tt - dd MMM");
                 CompletionTime.Content = time;
+                ETA.BorderThickness = new Thickness(1);
+                ETA.Cursor = Cursors.Hand;
             }
             else
             {
@@ -350,6 +352,8 @@ namespace Solaris
 
             ETA.Content = "";
             CompletionTime.Content = "";
+            ETA.BorderThickness = new Thickness(0);
+            ETA.Cursor = Cursors.Arrow;
         }
 
         private void Input_TextChanged(object sender, TextChangedEventArgs e)
