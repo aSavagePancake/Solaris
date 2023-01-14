@@ -209,6 +209,11 @@ namespace Solaris
 
         private void CalculateStart_Click(object sender, RoutedEventArgs e)
         {
+            if (isTimerRunning)
+            {
+                return;
+            }
+            
             int size = int.Parse(inputFilesize.Text);
             int completed = int.Parse(inputCompleted.Text);
             int speed = int.Parse(inputSpeed.Text);
@@ -341,6 +346,11 @@ namespace Solaris
 
         private void CalculateReset_Click(object sender, RoutedEventArgs e)
         {
+            if (isTimerRunning)
+            {
+                return;
+            }
+            
             string adjusted = "0";
             inputFilesize.Text = adjusted;
             inputCompleted.Text = adjusted;
@@ -523,6 +533,16 @@ namespace Solaris
                 Indicator2.Visibility = Visibility.Collapsed;
                 Indicator3.Visibility = Visibility.Collapsed;
                 labelDisableButtons.Visibility = Visibility.Collapsed;
+                inputFilesize.IsEnabled = true;
+                inputCompleted.IsEnabled = true;
+                inputSpeed.IsEnabled = true;
+                dropdownFilesize.IsEnabled = true;
+                dropDownalreadydownloaded.IsEnabled = true;
+                dropDownspeed.IsEnabled = true;
+                CalculateStart.IsEnabled= true;
+                CalculateReset.IsEnabled= true;
+                ETA.IsEnabled = true;
+                CompletionTime.IsEnabled = true;
 
                 if (Properties.Settings.Default.SettingNotifications == true)
                 {
@@ -536,7 +556,7 @@ namespace Solaris
                 return;
             }
 
-            countDown = new DispatcherTimer(new TimeSpan(0, 0, 1), DispatcherPriority.Normal, delegate
+            else
             {
                 TimerStartStop.Foreground = Brushes.Red;
                 StartStopIcon.Kind = MahApps.Metro.IconPacks.PackIconMaterialKind.Pause;
@@ -544,60 +564,75 @@ namespace Solaris
                 Indicator2.Visibility = Visibility.Visible;
                 Indicator3.Visibility = Visibility.Visible;
                 labelDisableButtons.Visibility = Visibility.Visible;
+                inputFilesize.IsEnabled = false;
+                inputCompleted.IsEnabled = false;
+                inputSpeed.IsEnabled = false;
+                dropdownFilesize.IsEnabled = false;
+                dropDownalreadydownloaded.IsEnabled = false;
+                dropDownspeed.IsEnabled = false;
+                CalculateStart.IsEnabled = false;
+                CalculateReset.IsEnabled = false;
+                ETA.IsEnabled = false;
+                CompletionTime.IsEnabled = false;
 
-                string totalTime = runningTime.ToString(@"hh\:mm\:ss");
-                string[] totalTimeSplit = totalTime.Split(':');
-                string hoursLeft = totalTimeSplit[0];
-                string minutesLeft = totalTimeSplit[1];
-                string secondsLeft = totalTimeSplit[2];
+                countDown = new DispatcherTimer(new TimeSpan(0, 0, 1), DispatcherPriority.Normal, delegate
+                {                   
+                    string totalTime = runningTime.ToString(@"hh\:mm\:ss");
+                    string[] totalTimeSplit = totalTime.Split(':');
+                    string hoursLeft = totalTimeSplit[0];
+                    string minutesLeft = totalTimeSplit[1];
+                    string secondsLeft = totalTimeSplit[2];
 
-                if (hoursLeft.Length.Equals(1))
-                {
-                    hoursLeft = "0" + hoursLeft;
-                }
-                if (minutesLeft.Length.Equals(1))
-                {
-                    minutesLeft = "0" + minutesLeft;
-                }
-                if (secondsLeft.Length.Equals(1))
-                {
-                    secondsLeft = "0" + secondsLeft;
-                }
-
-                TimerHours.Content = hoursLeft;
-                TimerMinutes.Content = minutesLeft;
-                TimerSeconds.Content = secondsLeft;
-
-                if (runningTime == TimeSpan.Zero)
-                {
-                    countDown.Stop();
-                    isTimerRunning = false;
-
-                    if (dropDownshutdown.Text == "Shutdown")
+                    if (hoursLeft.Length.Equals(1))
                     {
-                        string command = "/s";
-                        ExecuteShutdown(command);
+                        hoursLeft = "0" + hoursLeft;
                     }
-                    if (dropDownshutdown.Text == "Restart")
+                    if (minutesLeft.Length.Equals(1))
                     {
-                        string command = "/r";
-                        ExecuteShutdown(command);
+                        minutesLeft = "0" + minutesLeft;
                     }
+                    if (secondsLeft.Length.Equals(1))
+                    {
+                        secondsLeft = "0" + secondsLeft;
+                    }
+
+                    TimerHours.Content = hoursLeft;
+                    TimerMinutes.Content = minutesLeft;
+                    TimerSeconds.Content = secondsLeft;
+
+                    if (runningTime == TimeSpan.Zero)
+                    {
+                        countDown.Stop();
+                        isTimerRunning = false;
+
+                        if (dropDownshutdown.Text == "Shutdown")
+                        {
+                            string command = "/s";
+                            ExecuteShutdown(command);
+                        }
+                        if (dropDownshutdown.Text == "Restart")
+                        {
+                            string command = "/r";
+                            ExecuteShutdown(command);
+                        }
+                    }
+                    runningTime = runningTime.Add(TimeSpan.FromSeconds(-1));
+                }, Application.Current.Dispatcher);
+
+                countDown.Start();
+                isTimerRunning = true;                
+
+                string toastText = "Shutdown Timer Started: " + runningTime + " remaining";
+
+                if (Properties.Settings.Default.SettingNotifications == true)
+                {
+                    new ToastContentBuilder()
+                       .AddArgument("action", "viewConversation")
+                       .AddArgument("conversationId", 9813)
+                       .AddText(toastText)
+                       .Show();
                 }
-                runningTime = runningTime.Add(TimeSpan.FromSeconds(-1));
-            }, Application.Current.Dispatcher);
-
-            countDown.Start();
-            isTimerRunning = true;
-
-            if (Properties.Settings.Default.SettingNotifications == true)
-            {
-                new ToastContentBuilder()
-                   .AddArgument("action", "viewConversation")
-                   .AddArgument("conversationId", 9813)
-                   .AddText("Shutdown Timer Started")
-                   .Show();
-            }
+            }            
         }
 
         private static void ExecuteShutdown(string command)
@@ -629,6 +664,11 @@ namespace Solaris
 
         private void PredefinedTimes_Click(object sender, RoutedEventArgs e)
         {
+            if (isTimerRunning)
+            {
+                return;
+            }
+            
             string adjusted = "00";
             TimerHours.Content = adjusted;
             TimerMinutes.Content = adjusted;
