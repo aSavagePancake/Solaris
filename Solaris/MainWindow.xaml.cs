@@ -67,6 +67,9 @@ namespace Solaris
             SettingsFlyout.IsOpenChanged += SettingsFlyoutIsOpenChanged;
         }
 
+        [System.Text.RegularExpressions.GeneratedRegex("^[0-9]*$")]
+        private static partial System.Text.RegularExpressions.Regex MyRegex();
+
         public static readonly DependencyProperty ToolTipEnabledProperty = DependencyProperty.RegisterAttached(
             "IsToolTipEnabled",
             typeof(bool),
@@ -353,7 +356,7 @@ namespace Solaris
         {
             var textBoxSender = (TextBox)sender;
 
-            if (!System.Text.RegularExpressions.Regex.IsMatch(textBoxSender.Text, "^[0-9]*$"))
+            if (!MyRegex().IsMatch(textBoxSender.Text))
             {
                 if (textBoxSender.Text.Equals("0"))
                 {
@@ -840,6 +843,6 @@ namespace Solaris
         private static async Task PutTaskDelay()
         {
             await Task.Delay(500);
-        }
+        }        
     }
 }
