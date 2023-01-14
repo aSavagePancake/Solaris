@@ -411,7 +411,7 @@ namespace Solaris
             }
         }
 
-        private void ETA_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        private void ETA_MouseDown(object sender, MouseButtonEventArgs e)
         {
             if (isTimerRunning)
             {

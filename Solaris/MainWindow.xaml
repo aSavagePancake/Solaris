@@ -697,8 +697,8 @@
                     Content=""
                     Cursor="Hand"
                     FontSize="17"
-                    MouseDoubleClick="ETA_MouseDoubleClick"
-                    ToolTipService.ToolTip="Double-Click to add the calculated time to Shutdown Timer" />
+                    MouseDown="ETA_MouseDown"
+                    ToolTipService.ToolTip="Click to add the calculated time to Shutdown Timer" />
                 <Border
                     Width="4"
                     Margin="346,169,0,308"
