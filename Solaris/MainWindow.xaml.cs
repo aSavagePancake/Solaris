@@ -46,7 +46,7 @@ namespace Solaris
 
             string timeValue = AddExtraTimeTB.Text = Properties.Settings.Default.SettingAddTimeValue;
 
-            Window window = (Window)this;
+            Window window = this;
             if (Properties.Settings.Default.SettingKeepOnTop == true)
             {
                 window.Topmost = true;
@@ -69,7 +69,7 @@ namespace Solaris
 
         public static readonly DependencyProperty ToolTipEnabledProperty = DependencyProperty.RegisterAttached(
             "IsToolTipEnabled",
-            typeof(Boolean),
+            typeof(bool),
             typeof(MainWindow),
             new FrameworkPropertyMetadata(true, FrameworkPropertyMetadataOptions.Inherits, (sender, e) =>
             {
@@ -392,7 +392,7 @@ namespace Solaris
                     senderTextBox.Text = final.ToString();
                     return;
                 }
-                int senderTimer = int.Parse((string)senderTextBox.Text);
+                int senderTimer = int.Parse(senderTextBox.Text);
                 int adjustedsenderTimer = senderTimer + 1;
                 senderTextBox.Text = adjustedsenderTimer.ToString();
             }
@@ -405,7 +405,7 @@ namespace Solaris
                     senderTextBox.Text = final.ToString();
                     return;
                 }
-                int senderTimer = int.Parse((string)senderTextBox.Text);
+                int senderTimer = int.Parse(senderTextBox.Text);
                 int adjustedsenderTimer = senderTimer - 1;
                 senderTextBox.Text = adjustedsenderTimer.ToString();
             }
@@ -740,7 +740,7 @@ namespace Solaris
 
         private void KeepOnTopCB_Click(object sender, RoutedEventArgs e)
         {
-            Window window = (Window)this;
+            Window window = this;
 
             if (KeepOnTopCB.IsChecked == true)
             {
