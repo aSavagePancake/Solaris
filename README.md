@@ -11,7 +11,7 @@ Microsoft.Toolkit.Uwp.Notifications > https://github.com/CommunityToolkit/Window
 LibreHardwareMonitor.Hardware > https://github.com/LibreHardwareMonitor/LibreHardwareMonitor    
 
 Main UI ..  
-<img src="images/Screenshot.png"/>
+<img src="images/Solaris.gif"/>
 
 
 More ..  
