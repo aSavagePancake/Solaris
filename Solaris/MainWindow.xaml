@@ -41,7 +41,8 @@
             Click="ButtonPerfStats_Click"
             Cursor="Hand"
             Focusable="False"
-            Opacity="0.7">
+            Opacity="0.7"
+            ToolTipService.ToolTip="Harware Monitor">
             <Grid>
                 <iconPacks:PackIconMaterial
                     HorizontalAlignment="Center"
@@ -59,7 +60,8 @@
             Click="ButtonInfo_Click"
             Cursor="Hand"
             Focusable="False"
-            Opacity="0.7">
+            Opacity="0.7"
+            ToolTipService.ToolTip="Info">
             <Grid>
                 <iconPacks:PackIconMaterial
                     HorizontalAlignment="Center"
@@ -77,7 +79,8 @@
             Click="ButtonSettings_Click"
             Cursor="Hand"
             Focusable="False"
-            Opacity="0.7">
+            Opacity="0.7"
+            ToolTipService.ToolTip="Settings">
             <Grid>
                 <iconPacks:PackIconMaterial
                     HorizontalAlignment="Center"
@@ -95,7 +98,8 @@
             Click="ButtonExit_Click"
             Cursor="Hand"
             Focusable="False"
-            Opacity="0.7">
+            Opacity="0.7"
+            ToolTipService.ToolTip="Exit">
             <Grid>
                 <iconPacks:PackIconMaterial
                     HorizontalAlignment="Center"
@@ -440,6 +444,7 @@
 
                 <Label
                     x:Name="TimerHours"
+                    Cursor="Hand"
                     Width="100"
                     Height="109"
                     Margin="43,266,0,0"
@@ -453,6 +458,7 @@
                     ToolTipService.ToolTip="Timer Hours, scroll up/down to fine adjust" />
                 <Label
                     x:Name="TimerMinutes"
+                    Cursor="Hand"
                     Width="100"
                     Height="109"
                     Margin="171,266,0,0"
@@ -466,6 +472,7 @@
                     ToolTipService.ToolTip="Timer Minutes, scroll up/down to fine adjust" />
                 <Label
                     x:Name="TimerSeconds"
+                    Cursor="Hand"
                     Width="100"
                     Height="109"
                     Margin="298,266,0,0"
@@ -745,6 +752,7 @@
                     ToolTipService.ToolTip="Size unit: MB or GB" />
                 <TextBox
                     x:Name="inputFilesize"
+                    Cursor="Hand"
                     Width="113"
                     Height="28"
                     Margin="230,66,0,0"
@@ -761,6 +769,7 @@
                     ToolTipService.ToolTip="Total File Size, scroll up/down to fine adjust" />
                 <TextBox
                     x:Name="inputCompleted"
+                    Cursor="Hand"
                     Width="113"
                     Height="28"
                     Margin="230,99,0,0"
@@ -777,6 +786,7 @@
                     ToolTipService.ToolTip="% or MB's already downloaded, scroll up/down to fine adjust" />
                 <TextBox
                     x:Name="inputSpeed"
+                    Cursor="Hand"
                     Width="113"
                     Height="28"
                     Margin="230,132,0,0"
